@@ -3,6 +3,7 @@ package users
 import(
 	"github.com/infoshatanik/bookstore_users-api/utils/errors"
 	"fmt"
+	"time"
 )
 
 var (
@@ -32,6 +33,8 @@ func (user *User) Save() *errors.RestErr {
 		}
 		return errors.NewBadRequstError(fmt.Sprintf("user %d already exists",user.Id))
 	} 
+	now := time.Now()
+	user.DateCreated = now.Format("2006-01-02 15:04:05")
 	usersDB[user.Id] = user
 	return nil
 }
